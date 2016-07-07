@@ -13,7 +13,9 @@ require(rdd)
 library(doMC)
 require(sm)
 require(rdrobust)
-load("~/rdd_parallel/par_pessoa.rda")
+
+#Bolsa Familia data is not avaliable BUT, previous results are. Goto to line 103
+#load("~/rdd_parallel/par_pessoa.rda")
 
 source('~/rdd_parallel/rdestimate_par.R')
 source('~/rdd_parallel/functions_par.R')
@@ -93,14 +95,19 @@ for (i in 1:n) {
 }
 
 #Save the results for future use
-save(rd_res, file="bf_rd_res.rda")
-save(rdp2_res, file="bf_rdp2_res.rda")
-save(rdp5_res, file="bf_rdp5_res.rda")
-save(rdp10_res, file="bf_rdp10_res.rda")
+#save(rd_res, file="bf_rd_res.rda")
+#save(rdp2_res, file="bf_rdp2_res.rda")
+#save(rdp5_res, file="bf_rdp5_res.rda")
+#save(rdp10_res, file="bf_rdp10_res.rda")
+
+#Previous results are provided
+load(file="bf_rd_res.rda")  #sequential execution time, bandwidth and estimates
+load(file="bf_rdp2_res.rda") #2cores-parallel execution time, bandwidth and estimates
+load(file="bf_rdp5_res.rda") #5cores-parallel execution time, bandwidth and estimates
+load(file="bf_rdp10_res.rda") #10cores-parallel execution time, bandwidth and estimates
 
 #load(file="bf_rd_res.rda")
 #load(file="bf_rdp_res.rda")
-
 
 pdf(file="~/evaluation-par10-2.pdf",width=15,height=5)
 
