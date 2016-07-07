@@ -1,6 +1,5 @@
 #
 # Graphic analysis of Bolsa Familia Data
-# includes simulated data generation
 #
 # place this script at a folder named ~/rdd_parallel
 # 
