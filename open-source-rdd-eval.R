@@ -49,7 +49,7 @@ x = samp$x
 z = samp$T
 
 # Save plots in pdf file - Figure 1
-pdf(file="~/sim-data-2.pdf",width=15,height=5)
+pdf(file="~/sim-data-3.pdf",width=15,height=5)
 
 par(mfrow=c(1,3))
 par(mar=c(4.5, 5, 3.5, 2))
@@ -127,7 +127,7 @@ save(rdr_res, file="~/rdd_parallel/rdr_res.rda")
 #load(file="~/rdd_parallel/rdr_res.rda")
 
 # pdf file for figure 2
-pdf(file="~/comparison-2.pdf",width=15,height=5)
+pdf(file="~/comparison-3.pdf",width=15,height=5)
 
 par(mar=c(4.5, 5, 3.5, 2))
 
