@@ -10,7 +10,7 @@ evaluation-par.R: rdd_parallel evaluation - script for comparison between rdd pa
 rdestimate-par.R: main rdd function, modified for parallel execution<BR>
 functions-par.R: inner functions, modified for parallel execution. Includes the main modification in hat_values.ivreg<BR>
 
-Previuos results:<BR> 
+Saved results:<BR> 
 bf_rd_res.rda: sequential execution time, bandwidth and estimates<BR>
 bf_rdp2_res.rda: 2cores-parallel execution time, bandwidth and estimates<BR>
 bf_rdp5_res.rda: 5cores-parallel execution time, bandwidth and estimates<BR>
