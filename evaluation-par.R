@@ -3,6 +3,8 @@
 # script for comparison between rdd package and its novel parallel version
 #
 # place this script at a folder named ~/rdd_parallel
+# better executed at R Console
+# avoid use GUI environments as RStudio, as it may impact the measurements
 # 
 # Auxiliary resource for paper:
 # Brazil's Bolsa Familia and Young Adult Workers: A Parallel RDD Approach to Large Datasets
@@ -14,11 +16,11 @@ library(doMC)
 require(sm)
 require(rdrobust)
 
-#Bolsa Familia data is not avaliable BUT, previous results are. Goto to line 103
-#load("~/rdd_parallel/par_pessoa.rda")
+#Bolsa Familia data is not avaliable at github BUT, previous results are. Goto to line 103
+load("~/rdd_parallel/par_pessoa.rda")
 
-source('~/rdd_parallel/rdestimate_par.R')
-source('~/rdd_parallel/functions_par.R')
+source('~/rdd_parallel/rdestimate-par.R')
+source('~/rdd_parallel/functions-par.R')
 
 n = 20 #Number of steps
 
@@ -37,7 +39,7 @@ rdp5_res = data.frame(size = 1:n, time= 1:n, est=1:n, bw= 1:n,ci1=1:n,  ci2=1:n)
 #10 cores
 rdp10_res = data.frame(size = 1:n, time= 1:n, est=1:n, bw= 1:n,ci1=1:n,  ci2=1:n)
 
-for (i in 1:n) {
+for (i in 1:(n)) {
     if (i==n) {
       amostra <- pess #Full size sample
     } else {
@@ -79,7 +81,7 @@ for (i in 1:n) {
     rdp5_res$bw[i]   = rdp5$bw[1]
     rdp5_res$ci1[i]  = rdp5$ci[1,1]
     rdp5_res$ci2[i]  = rdp5$ci[1,2]
-    print(paste ("Par2 Time:",rdp5.t[3] ))
+    print(paste ("Par5 Time:",rdp5.t[3] ))
     
     #5 cores
     registerDoMC(10)
@@ -90,15 +92,15 @@ for (i in 1:n) {
     rdp10_res$bw[i]   = rdp10$bw[1]
     rdp10_res$ci1[i]  = rdp10$ci[1,1]
     rdp10_res$ci2[i]  = rdp10$ci[1,2]
-    print(paste ("Par2 Time:",rdp10.t[3] ))
+    print(paste ("Par10 Time:",rdp10.t[3] ))
     
 }
 
 #Save the results for future use
-#save(rd_res, file="bf_rd_res.rda")
-#save(rdp2_res, file="bf_rdp2_res.rda")
-#save(rdp5_res, file="bf_rdp5_res.rda")
-#save(rdp10_res, file="bf_rdp10_res.rda")
+save(rd_res, file="bf_rd_res.rda")
+save(rdp2_res, file="bf_rdp2_res.rda")
+save(rdp5_res, file="bf_rdp5_res.rda")
+save(rdp10_res, file="bf_rdp10_res.rda")
 
 #Previous results are provided
 load(file="bf_rd_res.rda")  #sequential execution time, bandwidth and estimates
@@ -106,10 +108,7 @@ load(file="bf_rdp2_res.rda") #2cores-parallel execution time, bandwidth and esti
 load(file="bf_rdp5_res.rda") #5cores-parallel execution time, bandwidth and estimates
 load(file="bf_rdp10_res.rda") #10cores-parallel execution time, bandwidth and estimates
 
-#load(file="bf_rd_res.rda")
-#load(file="bf_rdp_res.rda")
-
-pdf(file="~/evaluation-par10-2.pdf",width=15,height=5)
+pdf(file="~/rdd_parallel/evaluation-par10-2.pdf",width=15,height=5)
 
 #plot some graphics
 par(mfrow=c(1,3))
