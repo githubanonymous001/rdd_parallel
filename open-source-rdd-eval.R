@@ -49,7 +49,7 @@ x = samp$x
 z = samp$T
 
 # Save plots in pdf file - Figure 1
-pdf(file="~/sim-data-3.pdf",width=15,height=5)
+pdf(file="~/rdd_parallel/sim-data-3.pdf",width=15,height=5)
 
 par(mfrow=c(1,3))
 par(mar=c(4.5, 5, 3.5, 2))
@@ -91,7 +91,9 @@ rdr_res = data.frame(size = 1:n, time= 1:n, est=1:n, bw= 1:n,ci1=1:n,  ci2=1:n)
 
 #evaluation loop
 for(i in 1:n ) {
-
+  
+  print(paste ("Sample Size:",k*i ))
+  
   #get a simulated sample of size k*i  
   sim = simulator(k*i)
 
@@ -100,7 +102,9 @@ for(i in 1:n ) {
   z = sim$T
 
   #executes the rdd package estimation and collect results 
+  print("rdd..." )
   rd.t <- system.time(rd<-RDestimate(y~x+z))
+  print(paste("rdd time:",rd.t[3] ))
   rd_res$size[i] = i*k
   rd_res$time[i] = rd.t[3]
   rd_res$est[i] = rd$est[1]
@@ -109,7 +113,9 @@ for(i in 1:n ) {
   rd_res$ci2[i] = rd$ci[1,2]
 
   #executes the rdrobust package estimation and collect results 
+  print("rdrobust..." )
   rdr.t <- system.time(rdr<-rdrobust(y,x,fuzzy=z))
+  print(paste("rdrobust time:",rdr.t[3] ))
   rdr_res$size[i] = i*k
   rdr_res$time[i] = rdr.t[3]
   rdr_res$est[i] = rdr$coef[1,1]
@@ -127,7 +133,7 @@ save(rdr_res, file="~/rdd_parallel/rdr_res.rda")
 #load(file="~/rdd_parallel/rdr_res.rda")
 
 # pdf file for figure 2
-pdf(file="~/comparison-3.pdf",width=15,height=5)
+pdf(file="~/rdd_parallel/comparison-3.pdf",width=15,height=5)
 
 par(mar=c(4.5, 5, 3.5, 2))
 
